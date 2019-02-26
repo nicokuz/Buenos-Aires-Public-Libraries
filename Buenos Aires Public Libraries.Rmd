@@ -1,0 +1,33 @@
+---
+title: "Buenos Aires Public Libraries"
+author: "Nicolas E. Kuzminski"
+date: "26 de febrero de 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+#install.packages("leaflet")
+library(leaflet)
+```
+
+Made for the "Developing Data Products" Course by the John Hopkins University.
+
+Source Dataset provided from the "City of Buenos Aires Open Data" site at: https://data.buenosaires.gob.ar/dataset/bibliotecas
+
+
+```{r load}
+libraries <- read.csv("bibliotecas.csv")
+```
+
+```{r map}
+leaflet() %>% addTiles() %>%
+addMarkers(
+  lat = libraries$lat,
+  lng = libraries$long,
+  popup = paste0("<h3>", libraries$biblioteca, "</h3>", 
+                 libraries$direccion_normalizada)
+  )
+```
+
+Locations of the public libraries on the Autonomous City of Buenos Aires district with their names and addresses.
